@@ -1,7 +1,22 @@
 def syllabify(ipa):
+    """
+    Syllabify an IPA string based on sonority principles.
+    
+    Args:
+        ipa (str): The IPA string to syllabify
+        
+    Returns:
+        str: The syllabified string with syllable boundaries marked by dots
+        
+    Example:
+        >>> from syllabipy import syllabify
+        >>> syllabify("tʃɛʃcɪna")
+        'tʃɛʃ.cɪ.na'
+    """
     disallowOnsetClusters = True
     disallowCodaClusters = True
-
+    
+    # Normalize IPA input
     ipa = (
         ipa.replace("kʰ", "ㅋ")
         .replace("tʰ", "ㅌ")
@@ -16,7 +31,8 @@ def syllabify(ipa):
         .replace(".", "")
         .strip()
     )
-
+    
+    # Sonority hierarchy
     sonority = {
         "a": 11, "ɑ": 11, "ɒ": 11, "æ": 11, "ɐ": 11,
         "e": 10, "ɛ": 10, "ə": 10, "o": 10, "ɔ": 10, "ʌ": 10,
@@ -31,59 +47,61 @@ def syllabify(ipa):
         "b": 1, "d": 1, "g": 1, "ɖ": 1,
         "p": 0, "ㅋ": 0, "ㅍ": 0, "ㅌ": 0, "t": 0, "k": 0, "ʈ": 0, "q": 0
     }
-
+    
     phones = list(ipa)
     sonorityValues = [sonority.get(p, -1) for p in phones]
     isVowel = lambda index: sonorityValues[index] >= 8
-
     vowelIndices = [i for i in range(len(sonorityValues)) if isVowel(i)]
+    
     if len(vowelIndices) <= 1:
         return ipa
-
+    
     boundaries = []
+    disallowedClustersSet = set()  # Define this set as needed
+    
     for i in range(len(vowelIndices) - 1):
         v1 = vowelIndices[i]
         v2 = vowelIndices[i + 1]
-
+        
         if v2 == v1 + 1:
             continue
-
+            
         start = v1 + 1
         end = v2
         cluster = phones[start:end]
         clusterSonority = sonorityValues[start:end]
-
+        
         split = 0
         for j in range(len(clusterSonority) - 1, 0, -1):
             if clusterSonority[j - 1] < clusterSonority[j]:
                 split = j
                 break
-
+        
         codaIndex = start + split - 1
         while codaIndex >= start:
             codaPhone = phones[codaIndex]
             codaIndex -= 1
-
+        
         if split < 0:
             split = 0
-
+            
         if disallowCodaClusters and split > 1:
             split = 1
-
+            
         if split > 0:
             codaCluster = "".join(phones[start:start + split])
             if codaCluster in disallowedClustersSet:
                 split = 0
-
+                
         boundaries.append(start + split)
-
+    
     syllables = []
     prev = 0
     for boundary in boundaries:
         syllables.append(phones[prev:boundary])
         prev = boundary
     syllables.append(phones[prev:])
-
+    
     if disallowOnsetClusters:
         for i in range(1, len(syllables)):
             syll = syllables[i]
@@ -96,7 +114,7 @@ def syllabify(ipa):
                 excessOnset = syll[:vowelPos - 1]
                 syllables[i - 1].extend(excessOnset)
                 del syll[:vowelPos - 1]
-
+    
     for i in range(1, len(syllables)):
         syll = syllables[i]
         vowelPos = -1
@@ -106,8 +124,6 @@ def syllabify(ipa):
                 break
         if vowelPos > 0:
             onsetCluster = "".join(syll[:vowelPos])
-
+    
     resultSyllables = ["".join(syl) for syl in syllables]
     return ".".join(resultSyllables)
-
-print(syllabify("tʃɛʃcɪna"))
