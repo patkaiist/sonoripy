@@ -1,6 +1,7 @@
 function syllabify(ipa) {
   let disallowOnsetClusters = true;
   let disallowCodaClusters = true;
+  let disallowedClustersSet = [];
   ipa = ipa
     .replace(/kʰ/g, "ㅋ")
     .replace(/tʰ/g, "ㅌ")

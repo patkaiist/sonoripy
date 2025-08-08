@@ -15,8 +15,7 @@ def syllabify(ipa):
     """
     disallowOnsetClusters = True
     disallowCodaClusters = True
-    
-    # Normalize IPA input
+
     ipa = (
         ipa.replace("kʰ", "ㅋ")
         .replace("tʰ", "ㅌ")
@@ -32,7 +31,6 @@ def syllabify(ipa):
         .strip()
     )
     
-    # Sonority hierarchy
     sonority = {
         "a": 11, "ɑ": 11, "ɒ": 11, "æ": 11, "ɐ": 11,
         "e": 10, "ɛ": 10, "ə": 10, "o": 10, "ɔ": 10, "ʌ": 10,
@@ -57,7 +55,7 @@ def syllabify(ipa):
         return ipa
     
     boundaries = []
-    disallowedClustersSet = set()  # Define this set as needed
+    disallowedClustersSet = set()
     
     for i in range(len(vowelIndices) - 1):
         v1 = vowelIndices[i]
@@ -126,4 +124,25 @@ def syllabify(ipa):
             onsetCluster = "".join(syll[:vowelPos])
     
     resultSyllables = ["".join(syl) for syl in syllables]
-    return ".".join(resultSyllables)
+    result = ".".join(resultSyllables)
+    result = (result
+              .replace("ㅋ", "kʰ")
+              .replace("ㅌ", "tʰ")
+              .replace("ㅍ", "pʰ")
+              .replace("ρ", "rʰ")
+              .replace("ㅈ", "ʦʰ")
+              .replace("ξ", "ks")
+              .replace("ζ", "tz")
+              .replace("ㅊ", "ʧʰ")
+              .replace("-", ".")
+              .replace(" ", ".")
+              .replace(")", " ) ")
+              .replace("(", " ( ")
+              .replace(". ", " ")
+              .replace(" .", " ")
+              .replace("..", ".")
+              )
+
+    return result
+
+print(syllabify("kʰapon"))
