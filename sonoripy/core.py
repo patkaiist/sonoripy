@@ -23,6 +23,7 @@ def syllabify(inputstring):
         .replace("tʃ", "ʧ")
         .replace("ʈʃ", "ꭧ")
         .replace("ʧʰ", "ㅊ")
+        .replace("bʰ", "в")
         .replace("ts", "ʦ")
         .replace("ʦʰ", "ㅈ")
         .replace("dz", "ʣ")
@@ -39,8 +40,8 @@ def syllabify(inputstring):
     sonority = [
         ["ㅋ", "ㅍ", "ㅌ", "p", "t", "k", "ʈ", "q", "c", "п", "т", "к"], # voiceless plosives
         ["ɠ", "ɗ", "ɓ"], # implosives
-        ["b", "d", "g", "ɖ", "ɖ", "ɟ", "ɢ"], # voiced plosives
-        ["ʧ", "ʨ", "ㅊ", "ㅈ", "ʦ", "ʤ", "ʣ"], # affricates
+        ["b", "d", "g", "ɖ", "ɖ", "ɟ", "ɢ", "в"], # voiced plosives
+        ["ʧ", "ʨ", "ㅊ", "ㅈ", "ʦ", "ʤ", "ʣ", "ꭧ"], # affricates
         ["ç","ʂ", "f", "s", "ʃ", "θ", "x", "χ", "h", "ɸ", "ʕ", "ħ", "ɮ"], # voiceless fricatives
         ["ʝ","ʐ", "v", "z", "ʒ", "ð", "ɣ", "ʁ", "ɦ", "β", "ɬ", "ʢ"], # voiced fricatives
         ["m", "n", "ŋ", "ɲ", "ɴ", "ɱ"], # nasals
@@ -148,6 +149,7 @@ def syllabify(inputstring):
         .replace("ξ", "ks")
         .replace("ζ", "tz")
         .replace("ㅊ", "ʧʰ")
+        .replace("в", "bʰ")
         .replace("п", "p'")
         .replace("т", "t'")
         .replace("к", "k'")
