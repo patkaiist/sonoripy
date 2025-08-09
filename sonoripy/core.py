@@ -22,6 +22,7 @@ def syllabify(inputstring):
         .replace("pʰ", "ㅍ")
         .replace("tʃ", "ʧ")
         .replace("ʈʃ", "ꭧ")
+        .replace("ʈʃʰ", "ƈ")
         .replace("ʧʰ", "ㅊ")
         .replace("bʰ", "в")
         .replace("ts", "ʦ")
@@ -41,7 +42,7 @@ def syllabify(inputstring):
         ["ㅋ", "ㅍ", "ㅌ", "p", "t", "k", "ʈ", "q", "c", "п", "т", "к"], # voiceless plosives
         ["ɠ", "ɗ", "ɓ"], # implosives
         ["b", "d", "g", "ɖ", "ɖ", "ɟ", "ɢ", "в"], # voiced plosives
-        ["ʧ", "ʨ", "ㅊ", "ㅈ", "ʦ", "ʤ", "ʣ", "ꭧ"], # affricates
+        ["ʧ", "ʨ", "ㅊ", "ㅈ", "ʦ", "ʤ", "ʣ", "ꭧ", "ƈ"], # affricates
         ["ç","ʂ", "f", "s", "ʃ", "θ", "x", "χ", "h", "ɸ", "ʕ", "ħ", "ɮ"], # voiceless fricatives
         ["ʝ","ʐ", "v", "z", "ʒ", "ð", "ɣ", "ʁ", "ɦ", "β", "ɬ", "ʢ"], # voiced fricatives
         ["m", "n", "ŋ", "ɲ", "ɴ", "ɱ"], # nasals
@@ -145,6 +146,7 @@ def syllabify(inputstring):
         .replace("ㅍ", "pʰ")
         .replace("ρ", "rʰ")
         .replace("ꭧ", "ʈʃ")
+        .replace("ƈ", "ʈʃʰ")
         .replace("ㅈ", "ʦʰ")
         .replace("ξ", "ks")
         .replace("ζ", "tz")
