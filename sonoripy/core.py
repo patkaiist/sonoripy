@@ -30,68 +30,33 @@ def syllabify(inputstring):
         .replace(".", "")
         .strip()
     )
+    
+    # These are the default values. You may need to change this for language-specific hierarchies.
+    sonority = [
+        ["ㅋ", "ㅍ", "ㅌ", "p", "t", "k", "ʈ", "q", "c"], # voiceless plosives
+        ["b", "d", "g", "ɖ", "ɖ", "ɟ", "ɢ"], # voiced plosives
+        ["ɠ", "ɗ", "ɓ"], # implosives
+        ["ʧ", "ʨ", "ㅊ", "ㅈ", "ʦ", "ʤ", "ʣ"], # affricates
+        ["ç","ʂ", "f", "s", "ʃ", "θ", "x", "χ", "h", "ɸ", "ʕ", "ħ"], # voiceless fricatives
+        ["ʝ","ʐ", "v", "z", "ʒ", "ð", "ɣ", "ʁ", "ɦ", "β"], # voiced fricatives
+        ["m", "n", "ŋ", "ɲ"], # nasals
+        ["l", "ɭ", "ʎ"], # liquids
+        ["r", "ɹ"], # ...
+        ["j", "w"], # glides
+        ["ɾ", "ɽ"], # taps
+        ["i", "ɪ", "u", "ʊ", "y"], # high vowels
+        ["e", "ɛ", "ə", "o", "ɔ", "ʌ"], # mis vowels
+        ["a", "ɑ", "ɒ", "æ", "ɐ"] # low vowels
+    ]
 
-    sonority = {
-        "a": 11,
-        "ɑ": 11,
-        "ɒ": 11,
-        "æ": 11,
-        "ɐ": 11,
-        "e": 10,
-        "ɛ": 10,
-        "ə": 10,
-        "o": 10,
-        "ɔ": 10,
-        "ʌ": 10,
-        "i": 9,
-        "ɪ": 9,
-        "u": 9,
-        "ʊ": 9,
-        "y": 9,
-        "j": 8,
-        "w": 8,
-        "ɾ": 7,
-        "r": 7,
-        "l": 6,
-        "ɭ": 6,
-        "m": 5,
-        "n": 5,
-        "ŋ": 5,
-        "ɲ": 5,
-        "v": 4,
-        "z": 4,
-        "ʒ": 4,
-        "ð": 4,
-        "ɣ": 4,
-        "f": 3,
-        "s": 3,
-        "ʃ": 3,
-        "θ": 3,
-        "x": 3,
-        "h": 3,
-        "ʧ": 2,
-        "ʨ": 2,
-        "ㅊ": 2,
-        "ㅈ": 2,
-        "ʦ": 2,
-        "ʤ": 2,
-        "ʣ": 2,
-        "b": 1,
-        "d": 1,
-        "g": 1,
-        "ɖ": 1,
-        "p": 0,
-        "ㅋ": 0,
-        "ㅍ": 0,
-        "ㅌ": 0,
-        "t": 0,
-        "k": 0,
-        "ʈ": 0,
-        "q": 0,
-    }
+    def get_sonority(phoneme):
+        for index, phonemes in enumerate(sonority):
+            if phoneme in phonemes:
+                return index
+        return -1
 
     phones = list(ipa)
-    sonorityValues = [sonority.get(p, -1) for p in phones]
+    sonorityValues = [get_sonority(p) for p in phones]
     isVowel = lambda index: sonorityValues[index] >= 8
     vowelIndices = [i for i in range(len(sonorityValues)) if isVowel(i)]
 
@@ -149,7 +114,7 @@ def syllabify(inputstring):
             syll = syllables[i]
             vowelPos = -1
             for j in range(len(syll)):
-                if sonority.get(syll[j], -1) >= 8:
+                if get_sonority(syll[j]) >= 8:
                     vowelPos = j
                     break
             if vowelPos > 0:
@@ -161,7 +126,7 @@ def syllabify(inputstring):
         syll = syllables[i]
         vowelPos = -1
         for j in range(len(syll)):
-            if sonority.get(syll[j], -1) >= 8:
+            if get_sonority(syll[j]) >= 8:
                 vowelPos = j
                 break
         if vowelPos > 0:
@@ -190,4 +155,4 @@ def syllabify(inputstring):
     return result
 
 
-print(syllabify("pʰa"))
+print(syllabify("pʰantalam"))
