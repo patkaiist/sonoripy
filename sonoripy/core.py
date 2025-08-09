@@ -27,25 +27,28 @@ def syllabify(inputstring):
         .replace("dz", "ʣ")
         .replace("dʒ", "ʤ")
         .replace("tɕ", "ʨ")
+        .replace("p'", "п")
+        .replace("t'", "т")
+        .replace("k'", "к")
         .replace(".", "")
         .strip()
     )
     
     # These are the default values. You may need to change this for language-specific hierarchies.
     sonority = [
-        ["ㅋ", "ㅍ", "ㅌ", "p", "t", "k", "ʈ", "q", "c"], # voiceless plosives
-        ["b", "d", "g", "ɖ", "ɖ", "ɟ", "ɢ"], # voiced plosives
+        ["ㅋ", "ㅍ", "ㅌ", "p", "t", "k", "ʈ", "q", "c", "п", "т", "к"], # voiceless plosives
         ["ɠ", "ɗ", "ɓ"], # implosives
+        ["b", "d", "g", "ɖ", "ɖ", "ɟ", "ɢ"], # voiced plosives
         ["ʧ", "ʨ", "ㅊ", "ㅈ", "ʦ", "ʤ", "ʣ"], # affricates
-        ["ç","ʂ", "f", "s", "ʃ", "θ", "x", "χ", "h", "ɸ", "ʕ", "ħ"], # voiceless fricatives
-        ["ʝ","ʐ", "v", "z", "ʒ", "ð", "ɣ", "ʁ", "ɦ", "β"], # voiced fricatives
-        ["m", "n", "ŋ", "ɲ"], # nasals
-        ["l", "ɭ", "ʎ"], # liquids
-        ["r", "ɹ"], # ...
-        ["j", "w"], # glides
+        ["ç","ʂ", "f", "s", "ʃ", "θ", "x", "χ", "h", "ɸ", "ʕ", "ħ", "ɮ"], # voiceless fricatives
+        ["ʝ","ʐ", "v", "z", "ʒ", "ð", "ɣ", "ʁ", "ɦ", "β", "ɬ", "ʢ"], # voiced fricatives
+        ["m", "n", "ŋ", "ɲ", "ɴ", "ɱ"], # nasals
+        ["l", "ɭ", "ʎ", "ɹ"], # liquids
+        ["j", "w", "ɥ"], # glides
         ["ɾ", "ɽ"], # taps
-        ["i", "ɪ", "u", "ʊ", "y"], # high vowels
-        ["e", "ɛ", "ə", "o", "ɔ", "ʌ"], # mis vowels
+        ["r", "ʀ", "ʙ"], # trills
+        ["i", "ɪ", "u", "ʊ", "y", "ɨ", "ɯ"], # high vowels
+        ["e", "ɛ", "ə", "o", "ɔ", "ʌ", "ø", "œ"], # mis vowels
         ["a", "ɑ", "ɒ", "æ", "ɐ"] # low vowels
     ]
 
@@ -143,6 +146,9 @@ def syllabify(inputstring):
         .replace("ξ", "ks")
         .replace("ζ", "tz")
         .replace("ㅊ", "ʧʰ")
+        .replace("п", "p'")
+        .replace("т", "t'")
+        .replace("к", "k'")
         .replace("-", ".")
         .replace(" ", ".")
         .replace(")", " ) ")
@@ -153,6 +159,3 @@ def syllabify(inputstring):
     )
 
     return result
-
-
-print(syllabify("pʰantalam"))
