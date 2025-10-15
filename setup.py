@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="sonoriPy",
+    name="syllabiPy",
     version="0.0.1",
     author="Kellen Parker van Dam",
     author_email="kellenparker@gmail.com",
     description="A Python package for IPA syllabification based on sonority principles",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/patkaiist/sonoripy",
+    url="https://github.com/patkaiist/syllabipy",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -32,7 +32,7 @@ setup(
     install_requires=[],
     keywords="ipa, phonetics, syllabification, linguistics, phonology",
     project_urls={
-        "Bug Reports": "https://github.com/patkaiist/sonoripy/issues",
-        "Source": "https://github.com/patkaiist/sonoripy",
+        "Bug Reports": "https://github.com/patkaiist/syllabipy/issues",
+        "Source": "https://github.com/patkaiist/syllabipy",
     },
 )
