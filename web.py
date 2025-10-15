@@ -8,7 +8,7 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from sonoripy.core import syllabify
+from syllabipy.core import syllabify
 
 class SyllabifyHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
